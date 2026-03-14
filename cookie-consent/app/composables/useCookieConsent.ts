@@ -1,11 +1,14 @@
-import type { ModuleOptions } from '../types'
+import type { ModuleOptions } from '../../types'
 import { sendConsentToGTM } from '../utils/gtmConsent'
 import { injectScripts, removeScripts } from '../utils/scriptManager'
-import { onConsentAccepted,
+import {
+  onConsentAccepted,
   onConsentDenied,
   onCategoryAccepted,
   onScriptsInjected,
-  onScriptsRemoved, emitCookieConsentEvent } from '../composables/cookieConsentEvents'
+  onScriptsRemoved,
+  emitCookieConsentEvent
+} from './cookieConsentEvents'
 import { useCookie, useState, useAppConfig } from '#app'
 import { computed } from '#imports'
 

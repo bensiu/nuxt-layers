@@ -31,3 +31,11 @@ export interface ModuleOptions {
   // when true, debug logs (like GTM consent payload) are printed to console
   debug?: boolean
 }
+
+export interface CookieConsentBanerProps {
+  expiredCookie?: string
+  title?: string
+  description?: string
+  deny?: string
+  accept?: string
+}
