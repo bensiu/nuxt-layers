@@ -1,15 +1,7 @@
 <script setup lang="ts">
-type FeatureCardItem = {
-  icon?: string
-  title: string
-  description?: string
-  items?: string[]
-  link?: string
-  ui?: {
-    title?: string
-  }
-}
-const props = defineProps<FeatureCardItem>()
+import type { FeatureItemProps } from '../../../types'
+
+const props = defineProps<FeatureItemProps>()
 </script>
 
 <template>
@@ -74,14 +66,14 @@ const props = defineProps<FeatureCardItem>()
 
     <slot name="link">
       <div
-        v-if="props.link"
+        v-if="props.linkTitle"
         class="h-full"
       />
       <div
-        v-if="props.link"
+        v-if="props.linkTitle"
         class="flex items-center text-primary font-semibold text-sm group-hover:gap-3 gap-2 transition-all"
       >
-        {{ props.link }}
+        {{ props.linkTitle }}
         <UIcon
           name="lucide-arrow-right"
           class="h-4 w-4 transition-transform group-hover:translate-x-1"

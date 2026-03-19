@@ -20,10 +20,11 @@ export interface BreadCrumbsItem {
 
 export interface FeatureItemProps {
   title: string
-  description: string
+  description?: string
   icon?: string
   items?: string[]
   link?: string
+  linkTitle?: string
   ui?: {
     title?: string
   }
@@ -32,7 +33,8 @@ export interface FeatureItemProps {
 export interface SectionContentProps {
     lead?: string
     title: string
-    description: string
+    description?: string
+    content?: string[]
     variant?: SectionVariant
     class?: string
     items?: FeatureItemProps[]

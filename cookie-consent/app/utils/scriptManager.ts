@@ -1,4 +1,4 @@
-import type { CookieScript, GTMConsentField } from '../types'
+import type { CookieScript, GTMConsentField } from '../../types'
 import { emitCookieConsentEvent } from '../composables/cookieConsentEvents'
 import { sendConsentToGTM } from './gtmConsent'
 
