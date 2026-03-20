@@ -34,15 +34,6 @@ export default function (gtmId: string) {
     path: '/'
   }
 
-  useHead({
-    script: [
-      {
-        innerHTML: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`,
-        id: 'script-google-tag-manager-1'
-      }
-    ]
-  })
-
   const consentTimestamp = useCookie<number | null>('cookie_consent_timestamp', cookieOptions)
 
   const isConsentExpired = computed(() => {
@@ -66,14 +57,14 @@ export default function (gtmId: string) {
     }
 
     state.value = updated
+
     useCookie(cookieName, cookieOptions).value = JSON.stringify(updated)
-    useCookie('cookie_consent_timestamp', cookieOptions).value = Date.now().toString()
+    useCookie('cookie_consent_timestamp', cookieOptions).value = (Date.now() + expiresInMs).toString()
     useCookie('cookie_consent_version', cookieOptions).value = config.consentVersion || '1'
 
     if (import.meta.client && config.gtmConsentMapping) {
       setTimeout(() => {
         if (config.gtmConsentMapping) {
-          // console.log('updated : ', updated)
           return sendConsentToGTM(updated, config.gtmConsentMapping, !!config.debug)
         }
       }, 300) // delay to ensure GTM script has time to load
@@ -85,13 +76,14 @@ export default function (gtmId: string) {
       acc[key] = categories.includes(key)
       return acc
     }, {} as Record<string, boolean>)
-    // console.log('pref : ', prefs)
+
     updatePreferences(prefs)
   }
 
   const hasUserMadeChoice = computed(() => {
     return Object.entries(config.categories).some(([key, meta]) => {
       if (meta.required) return false
+
       return state.value[key] !== null && state.value[key] !== undefined
     })
   })
