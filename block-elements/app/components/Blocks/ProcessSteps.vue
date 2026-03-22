@@ -27,11 +27,12 @@ const props = defineProps<{ steps: ProcessStep[] }>()
         {{ item.step || idx + 1 }}
       </div>
 
-      <h3 class="text-xl font-semibold mb-2">
-        {{ item.title }}
-      </h3>
-
       <!-- eslint-disable vue/no-v-html -->
+      <h3
+        class="text-xl font-semibold mb-2"
+        v-html="item.title"
+      />
+
       <p
         class="text-sm leading-relaxed"
         v-html="item.description"
